@@ -6,7 +6,7 @@ namespace ConsoleSearch
     {
         static void Main(string[] args)
         {
-            new App().Run();
+            new App().Start();
         }
     }
 }

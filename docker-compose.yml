@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  api-1:
+    build:
+      context: .
+      dockerfile: "D:/Bachelor projekter/CowboysManager/SearchEngine-Baseline/API/Dockerfile"
+    ports:
+    - "8071:80"
+    volumes:
+    - "C:/Users/CSnit/Desktop/data/data:/data"
+  web:
+    build:
+      context: .
+      dockerfile: "D:/Bachelor projekter/CowboysManager/SearchEngine-Baseline/API/Dockerfile"
+    ports:
+    - "8070:80"
