@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "ConsoleSearch": {
+      "commandName": "Project"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}
