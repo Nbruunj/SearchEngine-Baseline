@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoadBalancingWeb.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace LoadBalancingWeb
           
         }
 
-        public string NextService(List<string> services)
+        public Service NextService(List<Service> services)
         {
             if(apirobinhood == 3)
             {
@@ -33,11 +34,17 @@ namespace LoadBalancingWeb
                 apirobinhood++;
                 return services[1];
             }
-            else
+            else if (services[2] != null)
             {
                 apirobinhood++;
                 return services[2];
             }
+            else {
+                //RETURN ERROR MESSAGE
+                return services[0];
+            }
+            
+            
 
         }
     }

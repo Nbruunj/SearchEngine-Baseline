@@ -9,26 +9,54 @@ namespace LoadBalancingWeb.Controllers
         static LoadBalancerStrategy strategy = new LoadBalancerStrategy();
 
         public List<string> _services = new List<string>();
-        public static string API = "http://localhost:8071/prime/prime/";
-        public static string API1 = "http://localhost:8072/prime/prime/";
-        public static string API2 = "http://localhost:8073/prime/prime/";
+       
         LoadBalancer _LoadBalancer = new LoadBalancer(strategy);
 
 
-        public LoadBalancerController() 
+        public LoadBalancerController()
         {
             
-            _LoadBalancer.AddService(API);
-            _LoadBalancer.AddService(API1);
-            _LoadBalancer.AddService(API2);
 
         }
-        [HttpGet("[controller]/GetNextService")]
-        public ActionResult<string> GetNextService()
+        [HttpGet("[controller]/GetNextService/{service}")]
+        public ActionResult<Service> GetNextService()
         {
 
-            return _LoadBalancer.NextService();
+            return _LoadBalancer.NextService(_LoadBalancer.GetAllServices());
         }
+
+        [Route("[controller]/RemoveService")]
+        [HttpDelete]
+        public ActionResult<Service> RemoveService(string url)
+        {
+            var serviceToRemove = _LoadBalancer.GetAllServices().Find(x => x.UrlName == url);
+            var removedService = _LoadBalancer.RemoveService(serviceToRemove);
+            return removedService;
+        }
+
+        [Route("[controller]/AddService")]
+        [HttpPost]
+        public ActionResult<Service> AddService(Service service)
+        {
+            var addedService = _LoadBalancer.AddService(service);
+            return addedService;
+        }
+
+        [Route("[controller]/GetAllServices")]
+        [HttpGet]
+        public ActionResult<List<Service>> GetAllServices() 
+        {
+            var services = _LoadBalancer.GetAllServices();
+            return services;
+        }
+
+
+    }
+
+    public class Service
+    {
+        public Guid Id { get; set; }
+        public string UrlName{ get; set; }
 
     }
 }

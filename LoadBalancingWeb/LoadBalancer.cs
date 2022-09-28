@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoadBalancingWeb.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,30 +10,40 @@ namespace LoadBalancingWeb
     public class LoadBalancer : ILoadBalancer
     {
         private ILoadBalancerStrategy _strategy;
+
+        public Service API = new Service { Id = Guid.NewGuid(), UrlName = "http://localhost:8071/prime/prime/" };
+        public Service API1 = new Service { Id = Guid.NewGuid(), UrlName = "http://localhost:8072/prime/prime/" };
+        public Service API2 = new Service { Id = Guid.NewGuid(), UrlName = "http://localhost:8073/prime/prime/" };
+
+        List<Service> _services = new List<Service>();
         
-        private List<string> _services;
 
         public LoadBalancer(ILoadBalancerStrategy strategy)
         {
             _strategy = strategy;
-            _services = new List<string>();
+            if (_services.Count == 0)
+            {
+                this.AddService(API);
+                this.AddService(API1);
+                this.AddService(API2);
+            }
         }
 
-        public List<string> GetAllServices()
+        public List<Service> GetAllServices()
         {
             return _services;
         }
 
-        public int AddService(string url)
+        public Service AddService(Service service)
         {
-            _services.Add(url);
-            return _services.Count - 1;
+            _services.Add(service);
+            return service;
         }
 
-        public int RemoveService(int id)
+        public Service RemoveService(Service service)
         {
-            _services.RemoveAt(id);
-            return id;
+            _services.RemoveAt(_services.FindIndex(x => x.Id == service.Id));
+            return service;
         }
 
         public ILoadBalancerStrategy GetActiveStrategy()
@@ -45,9 +56,9 @@ namespace LoadBalancingWeb
             _strategy = strategy;
         }
 
-        public string NextService()
+        public Service NextService(List<Service> services)
         {
-            return _strategy.NextService(_services);
+            return _strategy.NextService(services);
         }
     }
 }

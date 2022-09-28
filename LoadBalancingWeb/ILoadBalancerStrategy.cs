@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoadBalancingWeb.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace LoadBalancingWeb
 {
     public interface ILoadBalancerStrategy
     {
-        public string NextService(List<string> services);
+        public Service NextService(List<Service> services);
     }
 }

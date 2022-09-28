@@ -71,6 +71,8 @@ namespace ConsoleSearch
             string inputone = Console.ReadLine() ?? string.Empty;
             Console.Write("enter the Second number");
             string inputtwo = Console.ReadLine() ?? string.Empty;
+            //check 10000>
+            //removservice
             string url = string.Format(GetDockerUrl() + "CheckMultiplePrimeNumbers/" + inputone + "/" + inputtwo);
             string json = await new WebClient().DownloadStringTaskAsync(url);
             var result = JsonConvert.DeserializeObject<List<string>>(json);
@@ -78,6 +80,7 @@ namespace ConsoleSearch
             {
                 Console.WriteLine(i);
             }
+            //addservice
             
             return result;
 
