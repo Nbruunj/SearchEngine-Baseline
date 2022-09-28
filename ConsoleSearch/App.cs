@@ -15,24 +15,23 @@ namespace ConsoleSearch
 {
     public class App
     {
-        //public string API = "";
+        public string API = "";
 
 
         public void Start()
         {
-            var Loadbalancer = new LoadBalancerStrategy();
             Console.WriteLine("1: do you wont to check a single prime number");
             Console.WriteLine("2: do you wont to check multiple prime number");
             var select = Console.ReadLine();
             switch (select)
             {
                 case "1":
-                    var task = getstringprimenumber(Loadbalancer);
+                    var task = getstringprimenumber();
                     task.Wait();
                    
                     break;
                 case "2":
-                    var task2 = getallprimesinbetween(Loadbalancer);
+                    var task2 = getallprimesinbetween();
                     task2.Wait();
                     break;
             }
@@ -42,9 +41,8 @@ namespace ConsoleSearch
         }
         
          
-            public async Task<string> getstringprimenumber(ILoadBalancerStrategy loadBalancerStrategy)
+            public async Task<string> getstringprimenumber()
             {
-            var API = loadBalancerStrategy.NextService();
             Console.WriteLine(API.ToString());
             Console.WriteLine("enter number here thx you");
             string input = Console.ReadLine() ?? string.Empty;
@@ -55,9 +53,9 @@ namespace ConsoleSearch
             return result;
         }
 
-        public async Task<List<string>> getallprimesinbetween(ILoadBalancerStrategy loadBalancerStrategy)
+        public async Task<List<string>> getallprimesinbetween()
         {
-            var API = loadBalancerStrategy.NextService();
+            Console.Write(API);
             Console.Write("enter the first number");
             string inputone = Console.ReadLine() ?? string.Empty;
             Console.Write("enter the first number");
