@@ -16,28 +16,48 @@ namespace ConsoleSearch
 {
     public class App
     {
-        public string API = "";
-        LoadBalancerStrategy strategy = new LoadBalancerStrategy();
+        public string API = "http://localhost:5215/LoadBalancer/LoadBalancer/";
         public void Start()
         {
-            LoadBalancer LoadBalancer = new LoadBalancer(strategy);
+            Console.WriteLine("1: do you wont to check a single prime number");
+            Console.WriteLine("2: do you wont to check multiple prime number");
+
             var select = Console.ReadLine();
-            Console.WriteLine(LoadBalancer.GetAllServices);
-            API = LoadBalancer.NextService();
+
+            switch (select)
+            {
+                case "1":
+                    var task = getstringprimenumber();
+                    task.Wait();
+
+                    break;
+                case "2":
+                    var task2 = getallprimesinbetween();
+                    task2.Wait();
+                    break;
+
+            }
             Start();
 
 
 
+        }
+
+        public string GetDockerUrl() 
+        {
+            string url = string.Format(API + "GetNextService");
+            string json = new WebClient().DownloadString(url);
+            return json;
         }
         
          
             public async Task<string> getstringprimenumber()
             {
 
-            Console.WriteLine(API.ToString());
+            Console.WriteLine(GetDockerUrl());
             Console.WriteLine("enter number here thx you");
             string input = Console.ReadLine() ?? string.Empty;
-            string url = string.Format(API + "CheckSinglePrimeNumber/" + input);
+            string url = string.Format(GetDockerUrl() + "CheckSinglePrimeNumber/" + input);
             string json = await new WebClient().DownloadStringTaskAsync(url);
             var result = JsonConvert.DeserializeObject<string>(json);
             Console.WriteLine(result);
@@ -46,12 +66,12 @@ namespace ConsoleSearch
 
         public async Task<List<string>> getallprimesinbetween()
         {
-            Console.Write(API);
+            Console.Write(GetDockerUrl());
             Console.Write("enter the first number");
             string inputone = Console.ReadLine() ?? string.Empty;
-            Console.Write("enter the first number");
+            Console.Write("enter the Second number");
             string inputtwo = Console.ReadLine() ?? string.Empty;
-            string url = string.Format(API + "CheckMultiplePrimeNumbers/" + inputone + "/" + inputtwo);
+            string url = string.Format(GetDockerUrl() + "CheckMultiplePrimeNumbers/" + inputone + "/" + inputtwo);
             string json = await new WebClient().DownloadStringTaskAsync(url);
             var result = JsonConvert.DeserializeObject<List<string>>(json);
             foreach(var i in result)
