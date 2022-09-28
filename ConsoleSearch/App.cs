@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,28 +10,29 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 
+
 namespace ConsoleSearch
 {
     public class App
     {
-        public string API = "http://localhost:8071/prime/prime/";
-        
+        //public string API = "";
 
 
         public void Start()
         {
+            var Loadbalancer = new LoadBalancerStrategy();
             Console.WriteLine("1: do you wont to check a single prime number");
             Console.WriteLine("2: do you wont to check multiple prime number");
             var select = Console.ReadLine();
             switch (select)
             {
                 case "1":
-                    var task = getstringprimenumber();
+                    var task = getstringprimenumber(Loadbalancer);
                     task.Wait();
                    
                     break;
                 case "2":
-                    var task2 = getallprimesinbetween();
+                    var task2 = getallprimesinbetween(Loadbalancer);
                     task2.Wait();
                     break;
             }
@@ -40,8 +42,10 @@ namespace ConsoleSearch
         }
         
          
-            public async Task<string> getstringprimenumber()
+            public async Task<string> getstringprimenumber(ILoadBalancerStrategy loadBalancerStrategy)
             {
+            var API = loadBalancerStrategy.NextService();
+            Console.WriteLine(API.ToString());
             Console.WriteLine("enter number here thx you");
             string input = Console.ReadLine() ?? string.Empty;
             string url = string.Format(API + "CheckSinglePrimeNumber/" + input);
@@ -51,8 +55,9 @@ namespace ConsoleSearch
             return result;
         }
 
-        public async Task<List<string>> getallprimesinbetween()
+        public async Task<List<string>> getallprimesinbetween(ILoadBalancerStrategy loadBalancerStrategy)
         {
+            var API = loadBalancerStrategy.NextService();
             Console.Write("enter the first number");
             string inputone = Console.ReadLine() ?? string.Empty;
             Console.Write("enter the first number");
