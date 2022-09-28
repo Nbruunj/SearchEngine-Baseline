@@ -21,8 +21,6 @@ namespace Loadbalancing
             var select = Console.ReadLine();
             Console.WriteLine(LoadBalancer.NextService());
             Start();
-            
-
         }
         
       
