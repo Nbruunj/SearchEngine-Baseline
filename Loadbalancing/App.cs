@@ -1,33 +1,31 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.IO.Pipes;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-
 
 
 namespace Loadbalancing
 {
     public class App
     {
-        //public string API = "";
-
         LoadBalancerStrategy strategy = new LoadBalancerStrategy();
+        
+        public List<string> _services = new List<string>();
+        public static string API = "http://localhost:8071/prime/prime/";
+        public static string API1 = "http://localhost:8072/prime/prime/";
+        public static string API2 = "http://localhost:8073/prime/prime/";
+
         public void Start()
         {
-            Console.WriteLine("1: do you wont to check a single prime number");
-            Console.WriteLine("2: do you wont to check multiple prime number");
+            LoadBalancer LoadBalancer = new LoadBalancer(strategy);
+            LoadBalancer.AddService(API);
+            LoadBalancer.AddService(API1);
+            LoadBalancer.AddService(API2);
             var select = Console.ReadLine();
-            var test = strategy.NextService();
-            Console.WriteLine(test);
+            Console.WriteLine(LoadBalancer.NextService());
             Start();
-
-
+            
 
         }
+        
+      
+
     }
 }

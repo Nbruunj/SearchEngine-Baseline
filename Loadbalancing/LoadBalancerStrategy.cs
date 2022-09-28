@@ -11,18 +11,14 @@ namespace Loadbalancing
     {
 
 
-        public static string API = "http://localhost:8071/prime/prime/";
-        public static string API1 = "http://localhost:8072/prime/prime/";
-        public static string API2 = "http://localhost:8073/prime/prime/";
-        public List<string> services = new List<string>
-            { API, API1, API2 };
+        
         public int apirobinhood = 0;
         public LoadBalancerStrategy() 
         {
           
         }
 
-        public string NextService()
+        public string NextService(List<string> services)
         {
             if(apirobinhood == 3)
             {

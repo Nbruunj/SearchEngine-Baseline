@@ -8,6 +8,6 @@ namespace Loadbalancing
 {
     public interface ILoadBalancerStrategy
     {
-        public string NextService();
+        public string NextService(List<string> services);
     }
 }

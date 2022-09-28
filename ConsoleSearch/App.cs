@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Loadbalancing;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -16,25 +17,14 @@ namespace ConsoleSearch
     public class App
     {
         public string API = "";
-
-
+        LoadBalancerStrategy strategy = new LoadBalancerStrategy();
         public void Start()
         {
-            Console.WriteLine("1: do you wont to check a single prime number");
-            Console.WriteLine("2: do you wont to check multiple prime number");
+            LoadBalancer LoadBalancer = new LoadBalancer(strategy);
             var select = Console.ReadLine();
-            switch (select)
-            {
-                case "1":
-                    var task = getstringprimenumber();
-                    task.Wait();
-                   
-                    break;
-                case "2":
-                    var task2 = getallprimesinbetween();
-                    task2.Wait();
-                    break;
-            }
+            Console.WriteLine(LoadBalancer.GetAllServices);
+            API = LoadBalancer.NextService();
+            Start();
 
 
 
@@ -43,6 +33,7 @@ namespace ConsoleSearch
          
             public async Task<string> getstringprimenumber()
             {
+
             Console.WriteLine(API.ToString());
             Console.WriteLine("enter number here thx you");
             string input = Console.ReadLine() ?? string.Empty;
