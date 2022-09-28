@@ -16,13 +16,12 @@ namespace Loadbalancing
     {
         //public string API = "";
 
-
+        LoadBalancerStrategy strategy = new LoadBalancerStrategy();
         public void Start()
         {
             Console.WriteLine("1: do you wont to check a single prime number");
             Console.WriteLine("2: do you wont to check multiple prime number");
             var select = Console.ReadLine();
-            LoadBalancerStrategy strategy = new LoadBalancerStrategy();
             var test = strategy.NextService();
             Console.WriteLine(test);
             Start();
