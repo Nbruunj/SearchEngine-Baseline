@@ -68,7 +68,8 @@ namespace Prime.Controllers
                     }
 
                 }
-            }
+            } 
+
             Console.WriteLine("Found: " + list.Count() + " prime numbers.");
             return list;
         } 
