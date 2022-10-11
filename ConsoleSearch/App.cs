@@ -43,10 +43,10 @@ namespace ConsoleSearch
 
         }
 
-        public string GetDockerUrl() 
+        public async Task<string> GetDockerUrlAsync() 
         {
             string url = string.Format(API + "GetNextService");
-            string json = new WebClient().DownloadString(url);
+            string json = await new HttpClient().GetStringAsync(url);
             return json;
         }
         
@@ -54,11 +54,11 @@ namespace ConsoleSearch
             public async Task<string> getstringprimenumber()
             {
 
-            Console.WriteLine(GetDockerUrl());
+            Console.WriteLine(GetDockerUrlAsync());
             Console.WriteLine("enter number here thx you");
             string input = Console.ReadLine() ?? string.Empty;
-            string url = string.Format(GetDockerUrl() + "CheckSinglePrimeNumber/" + input);
-            string json = await new WebClient().DownloadStringTaskAsync(url);
+            string url = string.Format(GetDockerUrlAsync() + "CheckSinglePrimeNumber/" + input);
+            string json = await new HttpClient().GetStringAsync(url);
             var result = JsonConvert.DeserializeObject<string>(json);
             Console.WriteLine(result);
             return result;
@@ -66,13 +66,13 @@ namespace ConsoleSearch
 
         public async Task<List<string>> getallprimesinbetween()
         {
-            Console.Write(GetDockerUrl());
+            Console.Write(GetDockerUrlAsync());
             Console.Write("enter the first number");
             string inputone = Console.ReadLine() ?? string.Empty;
             Console.Write("enter the Second number");
             string inputtwo = Console.ReadLine() ?? string.Empty;
-            string url = string.Format(GetDockerUrl() + "CheckMultiplePrimeNumbers/" + inputone + "/" + inputtwo);
-            string json = await new WebClient().DownloadStringTaskAsync(url);
+            string url = string.Format(GetDockerUrlAsync() + "CheckMultiplePrimeNumbers/" + inputone + "/" + inputtwo);
+            string json = await new HttpClient().GetStringAsync(url);
             var result = JsonConvert.DeserializeObject<List<string>>(json);
             foreach(var i in result)
             {
