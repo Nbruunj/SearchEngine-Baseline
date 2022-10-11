@@ -14,7 +14,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loadbalancing", "Loadbalanc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prime", "Prime\Prime.csproj", "{3EF32958-6438-4541-B46E-3003B003DB74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadBalancingWeb", "LoadBalancingWeb\LoadBalancingWeb.csproj", "{9456AB76-331B-4E56-BE0C-ACB3BB6845C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadBalancingWeb", "LoadBalancingWeb\LoadBalancingWeb.csproj", "{9456AB76-331B-4E56-BE0C-ACB3BB6845C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "primtest", "primtest\primtest.csproj", "{51BA54B6-D719-4E2F-983A-2270A90390DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{9456AB76-331B-4E56-BE0C-ACB3BB6845C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9456AB76-331B-4E56-BE0C-ACB3BB6845C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9456AB76-331B-4E56-BE0C-ACB3BB6845C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51BA54B6-D719-4E2F-983A-2270A90390DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51BA54B6-D719-4E2F-983A-2270A90390DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51BA54B6-D719-4E2F-983A-2270A90390DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51BA54B6-D719-4E2F-983A-2270A90390DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
