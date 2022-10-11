@@ -8,7 +8,9 @@ namespace primes
     {
         public static string isprime(int number)
         {
-            int n, i, m = 0, flag = 0;
+            var m = 0;
+            var flag = 0;
+            var i = number;
             Console.Write("Enter the Number to check Prime: ");
             m = number / 2;
             for (i = 2; i <= m; i++)
