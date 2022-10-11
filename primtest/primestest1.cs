@@ -23,7 +23,7 @@ namespace primes
             if (flag == 0)
                 Console.Write("Number is Prime.");
            
-            return number.ToString();
+            return flag.ToString();
         }
     }
 }
