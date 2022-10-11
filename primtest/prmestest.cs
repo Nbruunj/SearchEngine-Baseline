@@ -12,7 +12,7 @@ namespace primtest
             public void isitprimenumber()
             {
                 // Arrange
-                string expected = "3";
+                string expected = "5";
 
 
                 // Act
